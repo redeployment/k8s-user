@@ -1,0 +1,35 @@
+{
+  "services": [
+    {
+      "id": "nginx1",
+      "name": "nginx",
+      "tags": [
+        "primary"
+      ],
+      "address": "114.91.254.104",
+      "port": 8080,
+      "connect": { 
+        "sidecar_service": {
+          
+        } 
+      }
+      
+    },
+    {
+      "id": "php1",
+      "name": "php",
+      "tags": [
+        "delayed",
+        "secondary"
+      ],
+      "address": "114.91.254.104",
+      "port": 9090,
+      "connect": { 
+        "sidecar_service": {
+          
+        } 
+      }
+      
+    }
+  ]
+}
