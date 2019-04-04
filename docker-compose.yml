@@ -10,7 +10,7 @@ services:
             - "php"
         volumes:
             - "$PWD/conf.d:/etc/nginx/conf.d"
-            - "/Library/WebServer/Documents/microservice/orderFruit/user:/usr/share/nginx/html"
+            - "/var/www/html:/usr/share/nginx/html"
         networks:
             - app_net
         container_name: "compose-nginx"
@@ -22,7 +22,7 @@ services:
         ports:
             - "9090:9000"
         volumes:
-            - "/Library/WebServer/Documents/microservice/orderFruit/user:/var/www/html"
+            - "/var/www/html:/var/www/html"
         networks:
             - app_net
         container_name: "compose-php"
