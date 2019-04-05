@@ -6,8 +6,12 @@
       "tags": [
         "primary"
       ],
-      "address": "114.91.254.104",
+      "address": "192.168.50.172",
       "port": 8080,
+      "check": {
+          "script": "curl 192.168.50.172:8080/status.php | grep OK || exit 2",
+          "interval": "5s"
+      },
       "connect": { 
         "sidecar_service": {
           
@@ -22,7 +26,7 @@
         "delayed",
         "secondary"
       ],
-      "address": "114.91.254.104",
+      "address": "192.168.50.172",
       "port": 9090,
       "connect": { 
         "sidecar_service": {
