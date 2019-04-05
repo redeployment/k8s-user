@@ -9,7 +9,8 @@ services:
         depends_on:
             - "php"
         volumes:
-            - "./conf.d:/etc/nginx/conf.d"
+            - "./nginx/conf.d:/etc/nginx/conf.d"
+            - "./nginx/log:/var/log/nginx"
             - "/var/www/html:/usr/share/nginx/html"
         networks:
             - app_net
