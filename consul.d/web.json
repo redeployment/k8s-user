@@ -1,8 +1,8 @@
 {
   "services": [
     {
-      "id": "nginx1",
-      "name": "nginx",
+      "id": "nginx_user_id",
+      "name": "nginx_user",
       "tags": [
         "primary"
       ],
