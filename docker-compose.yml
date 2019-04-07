@@ -5,28 +5,28 @@ services:
     nginx:
         image: nginx:latest
         ports:
-            - "8080:80"
+            - "${SERVICE_WEB_PORT}:80"
         depends_on:
             - "php"
         volumes:
             - "./nginx/conf.d:/etc/nginx/conf.d"
             - "./nginx/log:/var/log/nginx"
-            - "/var/www/html:/usr/share/nginx/html"
+            - "${PROJECT_LOCATION}/${PROJECT_NAME}/${SERVICE_NAME}:/usr/share/nginx/html"
         networks:
             - app_net
-        container_name: "compose-nginx"
+        container_name: "compose-${SERVICE_NAME}-nginx"
 
 
     php:
         build: ./php-fpm
         image: php:7.3-fpm
         ports:
-            - "9090:9000"
+            - "${SERVICE_FPM_PORT}:9000"
         volumes:
-            - "/var/www/html:/var/www/html"
+            - "${PROJECT_LOCATION}/${PROJECT_NAME}/${SERVICE_NAME}:/var/www/html"
         networks:
             - app_net
-        container_name: "compose-php"
+        container_name: "compose-${SERVICE_NAME}-php"
 
 networks:
     # 配置docker network
