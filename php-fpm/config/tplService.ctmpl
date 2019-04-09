@@ -1,0 +1,16 @@
+<?php
+
+
+return [
+
+{{range services}}
+# {{.Name}}{{range service .Name}}
+
+"{{.Name}}"=>[
+	'address'=>{{.Address}},
+	'port'=>{{.Port}},
+]{{end}}
+
+{{end}}
+
+];
