@@ -2,9 +2,15 @@ version: '3'
 services:
 
     consul:
+      
+
         build: 
             context: ./
             dockerfile: ./consul/Dockerfile
+      
+        command: agent -ui -rejoin -retry-join 192.168.50.163 -retry-max 10 -retry-interval 10s -node=compose-consul-agent
+        # entrypoint: 
+         
 
         expose:
             - 53
@@ -19,10 +25,19 @@ services:
             - 8301:8301
             - 8302:8302
             - 8400:8400
-            - 8500:8500 
+            - 8500:8500
+            - 8600:8600 
         dns:
             - 127.0.0.1
-    
+        network_mode: host
+        volumes:
+            - "./consul.d/data:/consul/data"
+        environment:    
+            - CONSUL_BIND_INTERFACE=eth0
+            - CONSUL_CLIENT_INTERFACE=eth0
+            - CONSUL_LOCAL_CONFIG={"leave_on_terminate":true}
+
+        
     nginx:
         image: nginx:latest
         ports:

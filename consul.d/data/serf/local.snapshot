@@ -1,0 +1,26 @@
+alive: linuxkit-025000000001 192.168.65.3:8301
+alive: linuxkit-025000000001 192.168.65.3:8301
+alive: serviceUser 192.168.50.172:8301
+alive: consulServer1 192.168.50.163:8301
+alive: serviceProduct 192.168.50.173:8301
+alive: clusterStatus 192.168.50.174:8301
+alive: consulServer2 192.168.50.164:8301
+clock: 38
+alive: compose-consul-agent 192.168.65.3:8301
+alive: consulServer1 192.168.50.163:8301
+alive: compose-consul-agent 192.168.65.3:8301
+alive: consulServer2 192.168.50.164:8301
+alive: clusterStatus 192.168.50.174:8301
+alive: serviceProduct 192.168.50.173:8301
+alive: serviceUser 192.168.50.172:8301
+alive: consulServer1 192.168.50.163:8301
+clock: 40
+alive: compose-consul-agent 192.168.65.3:8301
+alive: serviceProduct 192.168.50.173:8301
+alive: serviceUser 192.168.50.172:8301
+alive: clusterStatus 192.168.50.174:8301
+alive: consulServer2 192.168.50.164:8301
+alive: consulServer1 192.168.50.163:8301
+clock: 49
+leave
+clock: 50

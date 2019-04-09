@@ -1,0 +1,22 @@
+{
+    consul: "consul:8500",
+    logging: {
+        level: "INFO",
+        format: "default",
+        output: "stdout"
+    },
+    jobs: [
+        {
+            name: "consul-agent",
+            exec: [
+                "consul", "agent",
+                "-config-file=/etc/consul/consul.json",
+                "-rejoin",
+                "-retry-join", "192.168.50.163",
+                "-retry-max", "10",
+                "-retry-interval", "10s"
+              ],    
+            restarts: "unlimited"
+        }
+    ],
+} 
