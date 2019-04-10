@@ -1,12 +1,12 @@
 {
   "services": [
     {
-      "id": "nginx_user_id",
-      "name": "nginx_user",
+      "id": "nginx_product_id",
+      "name": "nginx_product",
       "tags": [
         "primary"
       ],
-      "address": "192.168.50.172",
+      "address": "192.168.50.173",
       "port": 8080
       
     }
