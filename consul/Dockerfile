@@ -48,7 +48,7 @@ COPY consul/scripts/ /usr/local/bin
 RUN chmod +x /usr/local/bin/reload.sh
 
 
-CMD ["containerpilot"]
+RUN containerpilot
 
 
 

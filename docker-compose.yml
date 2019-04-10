@@ -31,7 +31,7 @@ services:
             - 127.0.0.1
         # network_mode: host
         volumes:
-            - "./consul.d/data:/consul/data"
+            - "./consul//consul.d/data:/consul/data"
             - "${PROJECT_LOCATION}/${PROJECT_NAME}/${SERVICE_NAME}:/var/www/html"
         environment:    
             - CONSUL_BIND_INTERFACE=eth0
