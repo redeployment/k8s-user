@@ -1,0 +1,16 @@
+{
+  "watches": [
+    {
+      "type": "key",
+      "key": "testNumber",
+      "handler_type": "script",
+      "args": ["/usr/local/bin/reload.sh", "onChange"]
+    },
+    {
+      "type": "key",
+      "key": "testString",
+      "handler_type": "script",
+      "args": ["/usr/local/bin/reload.sh", "onChange"]
+    }
+  ]
+}

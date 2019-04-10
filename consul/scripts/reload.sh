@@ -1,19 +1,27 @@
 #!/bin/bash
 
-SERVICE_NAME=${SERVICE_NAME:-php-fpm}
+SERVICE_NAME=${SERVICE_NAME:-php}
 CONSUL=${CONSUL:-consul}
 
 preStart() {
-    echo "php-fpm preStart"
+    consul-template \
+        -once \
+        -dedup \
+        -consul-addr consul:8500 \
+        -template "/etc/tplService.ctmpl:var/www/html/config/serviceCatalogs.php"
 }
 
 onChange() {
-    echo "php-fpm onChange"
+    consul-template \
+        -once \
+        -dedup \
+        -consul-addr consul:8500 \
+        -template "/etc/tplService.ctmpl:var/www/html/config/serviceCatalogs.php"
 }
 
 help() {
-    echo "Usage: ./reload.sh preStart  => first-run configuration for php-fpm"
-    echo "       ./reload.sh onChange  => [default] update php-fom config on upstream changes"
+    echo "Usage: ./reload.sh preStart  => first-run configuration for php service"
+    echo "       ./reload.sh onChange  => [default] update php service catalogs config on consul cluster changes"
 }
 
 until

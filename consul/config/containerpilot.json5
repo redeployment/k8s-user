@@ -6,17 +6,13 @@
         output: "stdout"
     },
     jobs: [
+        
         {
-            name: "consul-agent",
-            exec: [
-                "consul", "agent",
-                "-config-file=/etc/consul/consul.json",
-                "-rejoin",
-                "-retry-join", "192.168.50.163",
-                "-retry-max", "10",
-                "-retry-interval", "10s"
-              ],    
-            restarts: "unlimited"
+          // we can create a chain of "setup" events by having
+          // jobs wait for other jobs to become healthy
+          name: "preStart",
+          exec: "/usr/local/bin/reload.sh preStart"
+          // exec: "/usr/local/bin/reload.sh preStart",
         }
-    ],
+    ]
 } 

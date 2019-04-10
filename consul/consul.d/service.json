@@ -9,16 +9,6 @@
       "address": "192.168.50.172",
       "port": 8080
       
-    },
-    {
-      "id": "php1",
-      "name": "php",
-      "tags": [
-        "delayed",
-        "secondary"
-      ],
-      "address": "192.168.50.172",
-      "port": 9090
     }
   ]
-}
+} 

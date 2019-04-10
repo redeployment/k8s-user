@@ -1,0 +1,23 @@
+<?php
+
+
+return [
+
+{{range services}}
+// {{.Name}}
+"{{.Name}}"=>[
+	{{range service .Name}}
+	[
+		"address"=>"{{.Address}}",
+		"port"=>"{{.Port}}",
+		"status"=>"{{.Status}}",
+	],
+	{{end}}
+],{{end}}
+
+];
+
+
+
+// '{{key "testString"}}":"{{key "testNumber"}}'
+
