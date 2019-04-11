@@ -1,2 +1,3 @@
 nginx/log
 .env
+consul/consul.d/data

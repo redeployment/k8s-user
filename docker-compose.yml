@@ -8,7 +8,7 @@ services:
             context: ./
             dockerfile: ./consul/Dockerfile
       
-        command: agent -ui -rejoin -retry-join ${CONSUL} -retry-max 10 -retry-interval 10s -node=compose-consul-agent
+        command: agent -ui -rejoin -retry-join ${CONSUL} -retry-max 10 -retry-interval 10s -node=service-agent-${SERVICE_NAME}
         # entrypoint: 
          
 
@@ -31,7 +31,7 @@ services:
             - 127.0.0.1
         # network_mode: host
         volumes:
-            - "./consul.d/data:/consul/data"
+            - "./consul/consul.d/data:/consul/data"
             - "${PROJECT_LOCATION}/${PROJECT_NAME}/${SERVICE_NAME}:/var/www/html"
         environment:    
             - CONSUL_BIND_INTERFACE=eth0
