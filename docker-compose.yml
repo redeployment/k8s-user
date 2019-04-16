@@ -56,7 +56,7 @@ services:
             - "${PROJECT_LOCATION}/${PROJECT_NAME}/${SERVICE_NAME}:/usr/share/nginx/html"
         networks:
             - app_net
-        container_name: "compose-${SERVICE_NAME}-nginx"
+        container_name: "${SERVICE_NAME}-nginx"
 
 
     php:
@@ -75,7 +75,7 @@ services:
             - "${PROJECT_LOCATION}/${PROJECT_NAME}/${SERVICE_NAME}:/var/www/html"
         networks:
             - app_net
-        container_name: "compose-${SERVICE_NAME}-php"
+        container_name: "${SERVICE_NAME}-php"
 
 networks:
     # 配置docker network
