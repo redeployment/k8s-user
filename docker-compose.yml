@@ -11,6 +11,8 @@ services:
         command: agent -ui -rejoin -retry-join ${CONSUL} -retry-max 10 -retry-interval 10s -node=service-agent-${SERVICE_NAME}
         # entrypoint: 
          
+        networks:
+            - app_net
 
         expose:
             - 53
