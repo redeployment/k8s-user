@@ -22,3 +22,4 @@ RUN echo 'session.save_path = "/tmp"' >>  /usr/local/etc/php/conf.d/session.ini
 #     && mv consul /bin \
 #     && rm consul_1.4.4_linux_amd64.zip
 
+# ADD ~/.ssh/

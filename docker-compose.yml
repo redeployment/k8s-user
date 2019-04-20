@@ -75,7 +75,7 @@ services:
             - "${SERVICE_FPM_PORT}:9000"
         volumes:
             - "${PROJECT_LOCATION}/${PROJECT_NAME}/${SERVICE_NAME}:/var/www/html"
-            - "~/.ssh:~/.ssh"
+            - "~/.ssh:/root/.ssh"
         networks:
             - app_net
         container_name: "${SERVICE_NAME}-php"
