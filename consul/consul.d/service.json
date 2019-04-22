@@ -2,7 +2,7 @@
   "services": [
     {
       "id": "nginx_user_id",
-      "name": "nginx_user",
+      "name": "service_user",
       "tags": [
         "primary"
       ],

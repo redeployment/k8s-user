@@ -71,6 +71,9 @@ services:
         environment:
             - BACKEND=php
             - CONSUL=consul
+            - DATABASE_LOGIN=${DATABASE_LOGIN}
+            - DATABASE_HOST=${DATABASE_HOST}
+            - DATABASE_PORT=${DATABASE_PORT}
         ports:
             - "${SERVICE_FPM_PORT}:9000"
         volumes:
@@ -79,8 +82,14 @@ services:
         networks:
             - app_net
         container_name: "${SERVICE_NAME}-php"
+        # command: ["-fNg", "-L", "3306:127.0.0.1:3306", "root@47.101.202.230"]
+        entrypoint: ["ssh","-fNg", "-L", "3306:127.0.0.1:3306", "root@47.101.202.230"]
+        # entrypoint: ssh -fNg -L 3306:127.0.0.1:3306 root@47.101.202.230
 
 networks:
     # 配置docker network
     app_net:
         driver: bridge
+
+
+
