@@ -77,9 +77,9 @@ services:
         environment:
             - BACKEND=php
             - CONSUL=consul
-            - DATABASE_LOGIN=${DATABASE_LOGIN}
-            - DATABASE_HOST=${DATABASE_HOST}
-            - DATABASE_PORT=${DATABASE_PORT}
+            # - DATABASE_LOGIN=${DATABASE_LOGIN}
+            # - DATABASE_HOST=${DATABASE_HOST}
+            # - DATABASE_PORT=${DATABASE_PORT}
         ports:
             - "${SERVICE_FPM_PORT}:9000"
         volumes:
