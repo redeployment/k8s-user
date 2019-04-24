@@ -40,6 +40,7 @@ services:
             - CONSUL_CLIENT_INTERFACE=eth0
             - CONSUL_LOCAL_CONFIG={"leave_on_terminate":true}
 
+        container_name: "${SERVICE_NAME}-consul"
         
     nginx:
         build: ./nginx
