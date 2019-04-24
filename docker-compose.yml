@@ -63,11 +63,17 @@ services:
 
     php:
         build: ./php-fpm
+            # context: ./
+            # dockerfile: ./php-fpm/Dockerfile
+            # dockerfile: php-fpm/Dockerfile-1
+
         image: php:7.3-fpm
         depends_on:
             - consul
+            - redis
         links:
             - consul
+            - redis
         environment:
             - BACKEND=php
             - CONSUL=consul
@@ -82,9 +88,21 @@ services:
         networks:
             - app_net
         container_name: "${SERVICE_NAME}-php"
-        # command: ["-fNg", "-L", "3306:127.0.0.1:3306", "root@47.101.202.230"]
-        entrypoint: ["ssh","-fNg", "-L", "3306:127.0.0.1:3306", "root@47.101.202.230"]
+        # command: ['&&', "/usr/local/bin/ssh.sh"]
+        # command: ["/usr/bin/ssh", "-fNg", "-L", "3306:127.0.0.1:3306", "root@47.101.202.230"]
+        # entrypoint: ["/usr/local/bin/ssh.sh"]
         # entrypoint: ssh -fNg -L 3306:127.0.0.1:3306 root@47.101.202.230
+
+    redis:
+        image: redis:latest
+        container_name: redis
+        ports:
+          - 63791:6379
+        networks:
+            - app_net
+        volumes:
+          - ./redis/data:/data
+        restart: always
 
 networks:
     # 配置docker network
