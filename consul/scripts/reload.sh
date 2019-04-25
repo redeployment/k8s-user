@@ -8,7 +8,7 @@ preStart() {
         -once \
         -dedup \
         -consul-addr consul:8500 \
-        -template "/etc/tplService.ctmpl:var/www/html/config/serviceCatalogs.php"
+        -template "/etc/tplService.ctmpl:/var/www/html/config/serviceCatalogs.php"
 }
 
 onChange() {
@@ -16,7 +16,7 @@ onChange() {
         -once \
         -dedup \
         -consul-addr consul:8500 \
-        -template "/etc/tplService.ctmpl:var/www/html/config/serviceCatalogs.php"
+        -template "/etc/tplService.ctmpl:/var/www/html/config/serviceCatalogs.php"
 }
 
 help() {
