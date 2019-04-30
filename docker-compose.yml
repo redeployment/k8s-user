@@ -36,8 +36,10 @@ services:
             - "./consul/consul.d/data:/consul/data"
             - "${PROJECT_LOCATION}/${PROJECT_NAME}/${SERVICE_NAME}:/var/www/html"
         environment:
-            - CONSUL_BIND_INTERFACE=${CONSUL_CLIENT}
-            - CONSUL_CLIENT_INTERFACE=${CONSUL_CLIENT}
+            - CONSUL_BIND_ADDRESS=${CONSUL_CLIENT}
+            - CONSUL_CLIENT_ADDRESS=${CONSUL_CLIENT}
+            # - CONSUL_BIND_INTERFACE=${CONSUL_CLIENT}
+            # - CONSUL_CLIENT_INTERFACE=${CONSUL_CLIENT}
             - CONSUL_LOCAL_CONFIG={"leave_on_terminate":true}
 
         container_name: "${SERVICE_NAME}-consul"
