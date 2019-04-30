@@ -19,8 +19,7 @@ services:
             '10',
             '-retry-interval',
             '10s',
-            '-bind=${CONSUL_CLIENT}',
-            '-client=${CONSUL_CLIENT}',
+            '-advertise=${CONSUL_CLIENT}',
             '-node=service-agent-${SERVICE_NAME}'
           ]
         # entrypoint:
@@ -43,8 +42,8 @@ services:
             - 8400:8400
             - 8500:8500
             - 8600:8600
-        dns:
-            - 127.0.0.1
+        # dns:
+            # - 127.0.0.1
         # network_mode: host
         volumes:
             - "./consul/consul.d/data:/consul/data"
@@ -52,8 +51,8 @@ services:
         environment:
             # - CONSUL_BIND_ADDRESS=${CONSUsL_CLIENT}
             # - CONSUL_CLIENT_ADDRESS=${CONSUL_sCLIENT}
-            # - CONSUL_BIND_INTERFACE=${CONSUL_CLIENT}
-            # - CONSUL_CLIENT_INTERFACE=${CONSUL_CLIENT}
+            - CONSUL_BIND_INTERFACE=eth0
+            - CONSUL_CLIENT_INTERFACE=eth0
             - CONSUL_LOCAL_CONFIG={"leave_on_terminate":true}
 
         container_name: "${SERVICE_NAME}-consul"
