@@ -8,7 +8,21 @@ services:
             context: ./
             dockerfile: ./consul/Dockerfile
 
-        command: agent -ui -rejoin -retry-join ${CONSUL_SERVER} -retry-max 10 -retry-interval 10s -node=service-agent-${SERVICE_NAME}
+        # command: agent -ui -rejoin -retry-join ${CONSUL_SERVER} -retry-max 10 -retry-interval 10s  -node=service-agent-${SERVICE_NAME}
+        command: [
+            'agent',
+            '-ui',
+            '-rejoin',
+            '-retry-join',
+            '${CONSUL_SERVER}',
+            '-retry-max',
+            '10',
+            '-retry-interval',
+            '10s',
+            'bind=${CONSUL_CLIENT}',
+            'client=${CONSUL_CLIENT}',
+            '-node=service-agent-${SERVICE_NAME}'
+          ]
         # entrypoint:
 
         networks:
@@ -36,8 +50,8 @@ services:
             - "./consul/consul.d/data:/consul/data"
             - "${PROJECT_LOCATION}/${PROJECT_NAME}/${SERVICE_NAME}:/var/www/html"
         environment:
-            - CONSUL_BIND_ADDRESS=${CONSUL_CLIENT}
-            - CONSUL_CLIENT_ADDRESS=${CONSUL_CLIENT}
+            # - CONSUL_BIND_ADDRESS=${CONSUsL_CLIENT}
+            # - CONSUL_CLIENT_ADDRESS=${CONSUL_sCLIENT}
             # - CONSUL_BIND_INTERFACE=${CONSUL_CLIENT}
             # - CONSUL_CLIENT_INTERFACE=${CONSUL_CLIENT}
             - CONSUL_LOCAL_CONFIG={"leave_on_terminate":true}
