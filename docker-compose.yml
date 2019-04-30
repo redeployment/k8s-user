@@ -19,8 +19,8 @@ services:
             '10',
             '-retry-interval',
             '10s',
-            'bind=${CONSUL_CLIENT}',
-            'client=${CONSUL_CLIENT}',
+            '-bind=${CONSUL_CLIENT}',
+            '-client=${CONSUL_CLIENT}',
             '-node=service-agent-${SERVICE_NAME}'
           ]
         # entrypoint:
