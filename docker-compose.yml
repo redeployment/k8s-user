@@ -2,15 +2,15 @@ version: '3'
 services:
 
     consul:
-      
 
-        build: 
+
+        build:
             context: ./
             dockerfile: ./consul/Dockerfile
-      
-        command: agent -ui -rejoin -retry-join ${CONSUL} -retry-max 10 -retry-interval 10s -node=service-agent-${SERVICE_NAME}
-        # entrypoint: 
-         
+
+        command: agent -ui -rejoin -retry-join ${CONSUL_SERVER} -retry-max 10 -retry-interval 10s -node=service-agent-${SERVICE_NAME}
+        # entrypoint:
+
         networks:
             - app_net
 
@@ -28,20 +28,20 @@ services:
             - 8302:8302
             - 8400:8400
             - 8500:8500
-            - 8600:8600 
+            - 8600:8600
         dns:
             - 127.0.0.1
         # network_mode: host
         volumes:
             - "./consul/consul.d/data:/consul/data"
             - "${PROJECT_LOCATION}/${PROJECT_NAME}/${SERVICE_NAME}:/var/www/html"
-        environment:    
-            - CONSUL_BIND_INTERFACE=eth0
-            - CONSUL_CLIENT_INTERFACE=eth0
+        environment:
+            - CONSUL_BIND_INTERFACE=${CONSUL_CLIENT}
+            - CONSUL_CLIENT_INTERFACE=${CONSUL_CLIENT}
             - CONSUL_LOCAL_CONFIG={"leave_on_terminate":true}
 
         container_name: "${SERVICE_NAME}-consul"
-        
+
     nginx:
         build: ./nginx
         image: nginx
@@ -50,7 +50,7 @@ services:
         depends_on:
             - php
             - consul
-        environment:    
+        environment:
             - BACKEND=nginx
             - CONSUL=consul
         volumes:
@@ -109,6 +109,3 @@ networks:
     # 配置docker network
     app_net:
         driver: bridge
-
-
-
