@@ -19,5 +19,4 @@ return [
 
 
 
-// '{{key "testString"}}":"{{key "testNumber"}}'
-
+// current version: '{{key "version"}}'
