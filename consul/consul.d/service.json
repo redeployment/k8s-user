@@ -1,14 +1,14 @@
 {
   "services": [
     {
-      "id": "nginx_user_id",
+      "id": "nginx_user",
       "name": "service_user",
       "tags": [
         "primary"
       ],
-      "address": "192.168.50.172",
+      "address": " 172.19.54.237",
       "port": 8080
-      
+
     }
   ]
-} 
+}
