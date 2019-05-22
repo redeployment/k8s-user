@@ -50,7 +50,7 @@ services:
             # - 127.0.0.1
         # network_mode: host
         volumes:
-            - "./consul/consul.d/data:/consul/data"s
+            - "./consul/consul.d/data:/consul/data"
             # - "${PROJECT_LOCATION}/${PROJEC T_NAME}/${SERVICE_NAME}:/var/www/html"
             - projectFolder:/var/www/html
         environment:

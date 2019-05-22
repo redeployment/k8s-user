@@ -1,5 +1,6 @@
 # https://hub.docker.com/_/consul
-FROM consul:latest
+# FROM consul:latest
+FROM consul:1.4.4
 
 
  # support bash shell
@@ -37,11 +38,11 @@ RUN export checksum=84642c13683ddae6ccb63386e6160e8cb2439c26	 \
 ENV CONTAINERPILOT=/etc/containerpilot.json5
 
 # add config files
-# consul service json file 
+# consul service json file
 COPY consul/consul.d/ /consul/config/
 # consul template json files
 COPY consul/consul-tpl.d/ /etc
-# add other confiles 
+# add other confiles
 COPY consul/config/ /etc
 # add script files
 COPY consul/scripts/ /usr/local/bin
@@ -49,6 +50,3 @@ RUN chmod +x /usr/local/bin/reload.sh
 
 
 # RUN containerpilot
-
-
-
