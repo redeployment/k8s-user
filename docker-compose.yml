@@ -50,8 +50,9 @@ services:
             # - 127.0.0.1
         # network_mode: host
         volumes:
-            - "./consul/consul.d/data:/consul/data"
-            - "${PROJECT_LOCATION}/${PROJECT_NAME}/${SERVICE_NAME}:/var/www/html"
+            - "./consul/consul.d/data:/consul/data"s
+            # - "${PROJECT_LOCATION}/${PROJEC T_NAME}/${SERVICE_NAME}:/var/www/html"
+            - projectFolder:/var/www/html
         environment:
             # - CONSUL_BIND_ADDRESS=${CONSUsL_CLIENT}
             # - CONSUL_CLIENT_ADDRESS=${CONSUL_sCLIENT}
@@ -75,7 +76,8 @@ services:
         volumes:
             - "./nginx/conf.d:/etc/nginx/conf.d"
             - "./nginx/log:/var/log/nginx"
-            - "${PROJECT_LOCATION}/${PROJECT_NAME}/${SERVICE_NAME}:/usr/share/nginx/html"
+            # - "${PROJECT_LOCATION}/${PROJECT_NAME}/${SERVICE_NAME}:/usr/share/nginx/html"
+            - projectFolder:/var/www/html
         networks:
             - app_net
         container_name: "${SERVICE_NAME}-nginx"
@@ -103,7 +105,8 @@ services:
         ports:
             - "${SERVICE_FPM_PORT}:9000"
         volumes:
-            - "${PROJECT_LOCATION}/${PROJECT_NAME}/${SERVICE_NAME}:/var/www/html"
+            # - "${PROJECT_LOCATION}/${PROJECT_NAME}/${SERVICE_NAME}:/var/www/html"
+            - projectFolder:/var/www/html
             - "~/.ssh:/root/.ssh"
         networks:
             - app_net
@@ -143,3 +146,9 @@ networks:
     # 配置docker network
     app_net:
         driver: bridge
+
+
+#Volumes
+volumes:
+  projectFolder:
+    driver: local
