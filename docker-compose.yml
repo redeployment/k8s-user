@@ -99,6 +99,7 @@ services:
         environment:
             - BACKEND=php
             - CONSUL=consul
+            - WORK_DIR=${PROJECT_LOCATION}
             # - DATABASE_LOGIN=${DATABASE_LOGIN}
             # - DATABASE_HOST=${DATABASE_HOST}
             # - DATABASE_PORT=${DATABASE_PORT}
