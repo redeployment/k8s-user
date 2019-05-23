@@ -1,0 +1,70 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: service-user
+spec:
+  selector:
+    app: user-app
+  ports:
+    - protocol: "TCP"
+      # Port accessible inside cluster
+      port: 8080
+      # Port to forward to inside the pod
+      targetPort: 80
+      # Port accessible outside cluster
+      nodePort: 30080
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-service-user
+spec:
+  selector:
+    matchLabels:
+      app: user-app
+      tier: backend
+      track: stable
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: user-app
+        tier: backend
+        track: stable
+    spec:
+      restartPolicy: Never
+      volumes:
+        - name: project-data
+          emptyDir: {}
+
+      containers:
+        - name: user-app
+          image: 192.168.50.180/order_fruit/service-user-app:latest
+          volumeMounts:
+            - name: project-data
+              mountPath: /var/www/html
+
+        - name: php
+          image: 192.168.50.180/order_fruit/php:7.3-fpm
+          ports:
+            - containerPort: 9000
+          volumeMounts:
+            - name: project-data
+              mountPath: /var/www/html
+
+        - name: nginx
+          image: 192.168.50.180/order_fruit/nginx:stable
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: project-data
+              mountPath: /var/www/html
+
+        - name: mysql
+          image: 192.168.50.180/order_fruit/mysql:latest
+
+        - name: redis
+          image: 192.168.50.180/order_fruit/redis:latest
