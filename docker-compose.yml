@@ -7,6 +7,7 @@ services:
         build:
             context: ./
             dockerfile: ./consul/Dockerfile
+        image: consul:1.4.4
 
         # command: agent -ui -rejoin -retry-join ${CONSUL_SERVER} -retry-max 10 -retry-interval 10s  -node=service-agent-${SERVICE_NAME}
         command: [
@@ -62,9 +63,25 @@ services:
 
         container_name: "${SERVICE_NAME}-consul"
 
+
+    app:
+        build: ./app
+            # context: ./
+            # dockerfile: ./php-fpm/Dockerfile
+            # dockerfile: php-fpm/Dockerfile-1
+
+        image: service-${SERVICE_NAME}-app
+        volumes:
+            # - "${PROJECT_LOCATION}/${PROJECT_NAME}/${SERVICE_NAME}:/var/www/html"
+            - projectFolder:/var/www/html
+        networks:
+            - app_net
+        container_name: "${SERVICE_NAME}-app"
+        tty: true
+
     nginx:
         build: ./nginx
-        image: nginx
+        image: nginx:stable
         ports:
             - "${SERVICE_WEB_PORT}:80"
         depends_on:
@@ -92,14 +109,15 @@ services:
         image: php:7.3-fpm
         depends_on:
             - consul
+            - app
             - redis
         links:
             - consul
+            - app
             - redis
         environment:
             - BACKEND=php
             - CONSUL=consul
-            - WORK_DIR=${PROJECT_LOCATION}
             # - DATABASE_LOGIN=${DATABASE_LOGIN}
             # - DATABASE_HOST=${DATABASE_HOST}
             # - DATABASE_PORT=${DATABASE_PORT}
@@ -143,13 +161,16 @@ services:
           - ./redis/data:/data
         restart: always
 
+
+
+
 networks:
     # 配置docker network
     app_net:
-        driver: bridge
+      driver: bridge
 
 
 #Volumes
 volumes:
-  projectFolder:
-    driver: local
+    projectFolder:
+      driver: local
