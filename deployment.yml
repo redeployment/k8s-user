@@ -15,7 +15,6 @@ spec:
       # Port accessible outside cluster
       nodePort: 30080
   type: LoadBalancer
-
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -35,7 +34,7 @@ spec:
         tier: backend
         track: stable
     spec:
-      restartPolicy: Never
+      # restartPolicy: Never
       volumes:
         - name: project-data
           emptyDir: {}
