@@ -37,19 +37,23 @@ spec:
       # restartPolicy: Never
       volumes:
         - name: project-data
-          emptyDir: {}
+          # emptyDir: {}
+          hostPath:
+            # directory location on host
+            path: /data
+
 
       containers:
         - name: user-app
-          image: redeploy/service-user-app:latest
+          image: redeploy/service-user-app:1.0
           volumeMounts:
             - name: project-data
               mountPath: /var/www/html
-          stdin: true 
+          stdin: true
           tty: true
 
         - name: php
-          image: redeploy/php:7.3-fpm
+          image: redeploy/php:rp-7.3-fpm
           ports:
             - containerPort: 9000
           volumeMounts:
@@ -57,7 +61,7 @@ spec:
               mountPath: /var/www/html
 
         - name: nginx
-          image: redeploy/nginx:stable
+          image: redeploy/nginx:rp-1.16
           ports:
             - containerPort: 8080
           volumeMounts:

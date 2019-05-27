@@ -70,7 +70,7 @@ services:
             # dockerfile: ./php-fpm/Dockerfile
             # dockerfile: php-fpm/Dockerfile-1
 
-        image: service-${SERVICE_NAME}-app
+        image: service-${SERVICE_NAME}-app:1.0
         volumes:
             # - "${PROJECT_LOCATION}/${PROJECT_NAME}/${SERVICE_NAME}:/var/www/html"
             - projectFolder:/var/www/html
@@ -81,7 +81,7 @@ services:
 
     nginx:
         build: ./nginx
-        # image: nginx:1.16
+        image: nginx:rp-1.16
         ports:
             - "${SERVICE_WEB_PORT}:80"
         depends_on:
