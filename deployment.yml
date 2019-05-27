@@ -45,6 +45,8 @@ spec:
           volumeMounts:
             - name: project-data
               mountPath: /var/www/html
+          stdin: true 
+          tty: true
 
         - name: php
           image: redeploy/php:7.3-fpm
@@ -62,8 +64,8 @@ spec:
             - name: project-data
               mountPath: /var/www/html
 
-        - name: mysql
-          image: redeploy/mysql:latest
-
-        - name: redis
-          image: redeploy/redis:latest
+        # - name: mysql
+        #   image: redeploy/mysql:latest
+        #
+        # - name: redis
+        #   image: redeploy/redis:latest

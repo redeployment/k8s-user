@@ -1,67 +1,67 @@
 version: '3'
 services:
 
-    consul:
-
-
-        build:
-            context: ./
-            dockerfile: ./consul/Dockerfile
-        image: consul:1.4.4
-
-        # command: agent -ui -rejoin -retry-join ${CONSUL_SERVER} -retry-max 10 -retry-interval 10s  -node=service-agent-${SERVICE_NAME}
-        command: [
-            'agent',
-            '-ui',
-            '-rejoin',
-            '-retry-join',
-            '${CONSUL_SERVER}',
-            '-retry-max',
-            '10',
-            '-retry-interval',
-            '10s',
-            '-advertise=${CONSUL_CLIENT}',
-            '-node=service-agent-${SERVICE_NAME}'
-          ]
-        # entrypoint:
-
-        networks:
-            - app_net
-
-        expose:
-            - 53
-            - 8300
-            - 8301
-            - 8302
-            - 8400
-            - 8500
-        ports:
-            - 53:53
-            - 8300:8300
-            - 8301:8301
-            - 8302:8302
-            - 8400:8400
-            - 8500:8500
-            - 8600:8600
-            - 53:53/udp
-            - 8301:8301/udp
-            - 8302:8302/udp
-
-        # dns:
-            # - 127.0.0.1
-        # network_mode: host
-        volumes:
-            - "./consul/consul.d/data:/consul/data"
-            # - "${PROJECT_LOCATION}/${PROJEC T_NAME}/${SERVICE_NAME}:/var/www/html"
-            - projectFolder:/var/www/html
-        environment:
-            # - CONSUL_BIND_ADDRESS=${CONSUsL_CLIENT}
-            # - CONSUL_CLIENT_ADDRESS=${CONSUL_sCLIENT}
-            - CONSUL_BIND_INTERFACE=eth0
-            - CONSUL_CLIENT_INTERFACE=eth0
-            - CONSUL_LOCAL_CONFIG={"leave_on_terminate":true}
-
-        container_name: "${SERVICE_NAME}-consul"
+    # consul:
+    #
+    #
+    #     build:
+    #         context: ./
+    #         dockerfile: ./consul/Dockerfile
+    #     image: consul:1.4.4
+    #
+    #     # command: agent -ui -rejoin -retry-join ${CONSUL_SERVER} -retry-max 10 -retry-interval 10s  -node=service-agent-${SERVICE_NAME}
+    #     command: [
+    #         'agent',
+    #         '-ui',
+    #         '-rejoin',
+    #         '-retry-join',
+    #         '${CONSUL_SERVER}',
+    #         '-retry-max',
+    #         '10',
+    #         '-retry-interval',
+    #         '10s',
+    #         '-advertise=${CONSUL_CLIENT}',
+    #         '-node=service-agent-${SERVICE_NAME}'
+    #       ]
+    #     # entrypoint:
+    #
+    #     networks:
+    #         - app_net
+    #
+    #     expose:
+    #         - 53
+    #         - 8300
+    #         - 8301
+    #         - 8302
+    #         - 8400
+    #         - 8500
+    #     ports:
+    #         - 53:53
+    #         - 8300:8300
+    #         - 8301:8301
+    #         - 8302:8302
+    #         - 8400:8400
+    #         - 8500:8500
+    #         - 8600:8600
+    #         - 53:53/udp
+    #         - 8301:8301/udp
+    #         - 8302:8302/udp
+    #
+    #     # dns:
+    #         # - 127.0.0.1
+    #     # network_mode: host
+    #     volumes:
+    #         - "./consul/consul.d/data:/consul/data"
+    #         # - "${PROJECT_LOCATION}/${PROJEC T_NAME}/${SERVICE_NAME}:/var/www/html"
+    #         - projectFolder:/var/www/html
+    #     environment:
+    #         # - CONSUL_BIND_ADDRESS=${CONSUsL_CLIENT}
+    #         # - CONSUL_CLIENT_ADDRESS=${CONSUL_sCLIENT}
+    #         - CONSUL_BIND_INTERFACE=eth0
+    #         - CONSUL_CLIENT_INTERFACE=eth0
+    #         - CONSUL_LOCAL_CONFIG={"leave_on_terminate":true}
+    #
+    #     container_name: "${SERVICE_NAME}-consul"
 
 
     app:
