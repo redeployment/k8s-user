@@ -5,7 +5,7 @@ metadata:
   name: service-user
 spec:
   selector:
-    app: user-app
+    app: nginx
   ports:
     - protocol: "TCP"
       # Port accessible inside cluster
@@ -23,14 +23,14 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: user-app
+      app: nginx
       tier: backend
       track: stable
-  replicas: 3
+  replicas: 2
   template:
     metadata:
       labels:
-        app: user-app
+        app: nginx
         tier: backend
         track: stable
     spec:
@@ -41,13 +41,13 @@ spec:
 
       containers:
         - name: user-app
-          image: 192.168.50.180/order_fruit/service-user-app:latest
+          image: redeploy/service-user-app:latest
           volumeMounts:
             - name: project-data
               mountPath: /var/www/html
 
         - name: php
-          image: 192.168.50.180/order_fruit/php:7.3-fpm
+          image: redeploy/php:7.3-fpm
           ports:
             - containerPort: 9000
           volumeMounts:
@@ -55,7 +55,7 @@ spec:
               mountPath: /var/www/html
 
         - name: nginx
-          image: 192.168.50.180/order_fruit/nginx:stable
+          image: redeploy/nginx:stable
           ports:
             - containerPort: 8080
           volumeMounts:
@@ -63,7 +63,7 @@ spec:
               mountPath: /var/www/html
 
         - name: mysql
-          image: 192.168.50.180/order_fruit/mysql:latest
+          image: redeploy/mysql:latest
 
         - name: redis
-          image: 192.168.50.180/order_fruit/redis:latest
+          image: redeploy/redis:latest

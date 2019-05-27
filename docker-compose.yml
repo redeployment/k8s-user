@@ -86,7 +86,7 @@ services:
             - "${SERVICE_WEB_PORT}:80"
         depends_on:
             - php
-            - consul
+            # - consul
         environment:
             - BACKEND=nginx
             - CONSUL=consul
@@ -108,13 +108,13 @@ services:
 
         image: php:7.3-fpm
         depends_on:
-            - consul
+            # - consul
             - app
-            - redis
+            # - redis
         links:
-            - consul
+            # - consul
             - app
-            - redis
+            # - redis
         environment:
             - BACKEND=php
             - CONSUL=consul
