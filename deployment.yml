@@ -39,8 +39,7 @@ spec:
         - name: project-data
           # emptyDir: {}
           hostPath:
-            # directory location on host
-            path: /data
+            path: /var/www/html
 
 
       containers:
