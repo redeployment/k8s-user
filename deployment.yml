@@ -1,13 +1,28 @@
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-user-php
+  labels:
+    tier: backend
+spec:
+  selector:
+    app: php
+    tier: backend
+  ports:
+  - protocol: TCP
+    port: 9000
+
+---
 kind: Service
 apiVersion: v1
 metadata:
-  name: service-user
+  name: service-user-nginx
 spec:
   selector:
     app: nginx
   ports:
-    - protocol: "TCP"
+    - protocol: TCP
       # Port accessible inside cluster
       port: 8080
       # Port to forward to inside the pod
@@ -15,6 +30,8 @@ spec:
       # Port accessible outside cluster
       nodePort: 30080
   type: LoadBalancer
+
+
 ---
 apiVersion: apps/v1
 kind: Deployment
