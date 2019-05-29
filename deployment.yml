@@ -18,15 +18,18 @@ kind: Service
 apiVersion: v1
 metadata:
   name: service-user-nginx
+  labels:
+    tier: backend
 spec:
   selector:
     app: nginx
+    tier: backend
   ports:
     - protocol: TCP
       # Port accessible inside cluster
-      port: 8080
+      port: 80
       # Port to forward to inside the pod
-      targetPort: 80
+      # targetPort: 8080
       # Port accessible outside cluster
       nodePort: 30080
   type: LoadBalancer
@@ -43,8 +46,41 @@ spec:
 #     requests:
 #       storage: 1Gi
 
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+  labels:
+    tier: backend
+data:
+  config : |
+    server {
+        listen 80;
+        #listen 8080;
+        server_name  localhost;
+        root   /var/www/html/public/;
+        index  index.html index.htm index.php;
 
+        error_log  /var/log/nginx/error.log  warn;
+        access_log /var/log/nginx/access.log;
 
+        location / {
+            try_files $uri $uri/ /index.php?$query_string;
+            gzip_static on;
+        }
+       error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   /var/www/html/public;
+        }
+        location ~ \.php$ {
+            fastcgi_pass   php:9000;
+            fastcgi_index  index.php;
+            fastcgi_param  SCRIPT_FILENAME /var/www/html/public/$fastcgi_script_name;
+
+            include        fastcgi_params;
+        }
+    }
 
 ---
 apiVersion: apps/v1
@@ -75,6 +111,12 @@ spec:
 
           # persistentVolumeClaim:
           #   claimName: code
+        - name: config
+          configMap:
+            name: nginx-config
+            items:
+            - key: config
+              path: default.conf
 
       initContainers:
         - name: user-app
@@ -108,11 +150,12 @@ spec:
         - name: nginx
           image: redeploy/nginx:rp-1.16-p
           ports:
-            - containerPort: 8080
+            - containerPort: 80
           volumeMounts:
             - name: code
               mountPath: /var/www/html
-
+            - name: config
+              mountPath: /etc/nginx/conf.d
         # - name: mysql
         #   image: redeploy/mysql:latest
         #
