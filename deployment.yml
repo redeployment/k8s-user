@@ -42,7 +42,7 @@ spec:
 #   resources:
 #     requests:
 #       storage: 1Gi
-#   storageClassName: do-block-storage
+
 
 
 
@@ -68,9 +68,10 @@ spec:
       # restartPolicy: Never
       volumes:
         - name: code
-          hostPath:
-            # directory location on host
-            path: /var/www/html
+          emptyDir: {}
+      #     hostPath:
+      #       # directory location on host
+      #       path: /var/www/html
 
           # persistentVolumeClaim:
           #   claimName: code
@@ -78,13 +79,24 @@ spec:
       initContainers:
         - name: user-app
           image: redeploy/service-user-app:1.0
+          command: [bash, -c]
+          args: ["cp -r /var/www/html/* /data"]
+          imagePullPolicy: Always
           volumeMounts:
             - name: code
-              mountPath: /var/www/html
+              mountPath: /data
           # stdin: true
           # tty: true
 
       containers:
+        # - name: user-app
+        #   image: redeploy/service-user-app:1.0
+        #   volumeMounts:
+        #     - name: code
+        #       mountPath: /var/www/html
+        #   stdin: true
+        #   tty: true
+
         - name: php
           image: redeploy/php:rp-7.3-fpm
           ports:
