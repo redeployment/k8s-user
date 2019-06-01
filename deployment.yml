@@ -57,7 +57,6 @@ data:
   config : |
     server {
         listen 80;
-        #listen 8080;
         server_name  localhost;
         root   /var/www/html/public/;
         index  index.html index.htm index.php;
@@ -162,10 +161,10 @@ spec:
         # - name: redis
         #   image: redeploy/redis:latest
 
-        - name: consul
-          image: redeploy/consul:rp-7.3-fpm
-          ports:
-            - containerPort: 9000
-          volumeMounts:
-            - name: code
-              mountPath: /var/www/html
+        # - name: consul
+        #   image: redeploy/consul:rp-7.3-fpm
+        #   ports:
+        #     - containerPort: 9000
+        #   volumeMounts:
+        #     - name: code
+        #       mountPath: /var/www/html

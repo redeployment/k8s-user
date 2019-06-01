@@ -104,7 +104,7 @@ services:
             # dockerfile: ./php-fpm/Dockerfile
             # dockerfile: php-fpm/Dockerfile-1
 
-        image: php:7.3-fpm
+        image: php:rp-7.3-fpm
         depends_on:
             # - consul
             - app
